@@ -1,20 +1,28 @@
 import React from 'react';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
+  Media, Row, Col
+} from 'reactstrap';
+import './SearchResult.css'
 
- // TODO see https://developer.marvel.com/documentation/images
+// TODO see https://developer.marvel.com/documentation/images
 function SearchResult(props) {
-    return (
-        <Card>
-            <CardImg top width="100%" src="http://placekitten.com/100/150" alt="cat" />
-            <CardBody>
-                <CardTitle>{props.title}</CardTitle>
-                <CardText>{props.desc}</CardText>
-            </CardBody>
-        </Card>
-    )
+  return (
+    <Row>
+      <Col>
+        <Media>
+          <Media left href="#">
+            <Media className="thumbnail" object src="http://placekitten.com/128/128" alt="Generic placeholder image" />
+          </Media>
+          <Media body>
+            <Media heading>
+              Media heading
+                    </Media>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </Media>
+        </Media>
+      </Col>
+    </Row>
+  )
 }
 
 export default SearchResult;
