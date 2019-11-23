@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import SearchBar from './SearchBar'
 import SearchResult from './SearchResult'
 import './SearchApp.css';
-
+import $ from 'jquery';
 
 class SearchApp extends React.Component {
   constructor(props) {
@@ -17,21 +17,29 @@ class SearchApp extends React.Component {
   }
 
   search(value) {
+    console.debug(process.env.REACT_APP_API_URL);
     console.debug('Search value: ' + value);
-    this.setState({ results: value.split('') })
+
+    let request = process.env.REACT_APP_API_URL + '/search/' + value;
+    $.getJSON(request, (results) => {
+      console.debug(results);
+      this.setState({ results: results.data.results })
+    } );
+
+    
   }
 
   renderResults() {
     const r = this.state.results.slice();
-    const styledR = r.map((v, i) => {
+    const styledResults = r.map((v, i) => {
       return (
-        <SearchResult key={i} title="Comic Title 1" desc="A comic for a thing"></SearchResult>
+        <SearchResult key={v.id} title={v.title} desc={v.description}></SearchResult>
       )
     });
 
     return (
       <div>
-        {styledR}
+        {styledResults}
       </div>
     )
   }

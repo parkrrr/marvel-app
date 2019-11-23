@@ -11,14 +11,14 @@ function SearchResult(props) {
       <Col>
         <Media>
           <Media left href="#">
-            <Media className="thumbnail" object src="http://placekitten.com/128/128" alt="Generic placeholder image" />
+            <Media className="thumbnail" object src="{props.thumbnail}" alt="Generic placeholder image" />
           </Media>
           <Media body>
             <Media heading>
-              Media heading
-                    </Media>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </Media>
+              {props.title}
+            </Media>
+            {props.desc}
+          </Media>
         </Media>
       </Col>
     </Row>
