@@ -18,6 +18,12 @@ class SearchBar extends React.Component {
     this.setState({ searchText: e.target.value });
   }
 
+  handleKeyPress(e) {
+    if (e.charCode === 13) {
+      this.submit();
+    }
+  }
+
   submit() {
     this.props.onSubmit(this.state.searchText);
   }
@@ -25,7 +31,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <InputGroup>
-        <Input value={this.state.searchText} onChange={e => this.updateSearchText(e)} /><InputGroupAddon addonType="append"><Button onClick={() => this.submit()}>Search</Button> </InputGroupAddon>
+        <Input value={this.state.searchText} onKeyPress={e => { this.handleKeyPress(e) }} onChange={e => this.updateSearchText(e)} /><InputGroupAddon addonType="append"><Button onClick={() => this.submit()}>Search</Button> </InputGroupAddon>
       </InputGroup>
     )
   }
