@@ -12,7 +12,9 @@ class SearchApp extends React.Component {
     this.search = this.search.bind(this)
 
     this.state = {
-      results: []
+      results: null,
+      resultsCount: 0,
+      resultsTotal: 0
     };
   }
 
@@ -23,13 +25,19 @@ class SearchApp extends React.Component {
     let request = process.env.REACT_APP_API_URL + '/search/' + value;
     $.getJSON(request, (results) => {
       console.debug(results);
-      this.setState({ results: results.data.results })
-    } );
+      this.setState({
+        results: results.data.results,
+        resultsCount: results.data.count,
+        resultsTotal: results.data.total
+      });
+    });
 
-    
+
   }
 
   renderResults() {
+    if (!this.state.results) return;
+
     const r = this.state.results.slice();
     const styledResults = r.map((result, i) => {
       return (
@@ -44,6 +52,19 @@ class SearchApp extends React.Component {
     )
   }
 
+  renderStats() {
+    if (!this.state.results) return;
+    return (
+      <Row className="statsRow">
+        <Col>
+          <div>
+            Showing {this.state.resultsCount} results of {this.state.resultsTotal}
+          </div>
+        </Col>
+      </Row>
+    )
+  }
+
   render() {
     return (
       <Container className="container">
@@ -54,10 +75,12 @@ class SearchApp extends React.Component {
             </div>
           </Col>
         </Row>
+        {this.renderStats()}
         <div id="resultsPane">
 
         </div>
         {this.renderResults()}
+
       </Container>
     )
   }
