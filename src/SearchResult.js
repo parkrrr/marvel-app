@@ -4,7 +4,6 @@ import {
 } from 'reactstrap';
 import './SearchResult.css'
 
-// TODO see https://developer.marvel.com/documentation/images
 function SearchResult(props) {
   let thumbnail = props.result.thumbnail.path + "/standard_medium." + props.result.thumbnail.extension;
 
@@ -13,7 +12,7 @@ function SearchResult(props) {
       <Col>
         <Media>
           <Media left>
-            <Media className="thumbnail" object src={thumbnail} alt="Generic placeholder image" />
+            <Media className="thumbnail" object src={thumbnail}/>
           </Media>
           <Media body>
             <Media heading>
