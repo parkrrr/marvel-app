@@ -1,3 +1,9 @@
 .thumbnail {
     padding-right: 1rem;
+    width:100px;
+    height:100px;
+}
+
+.resultRow {
+    padding-bottom: 1rem;
 }

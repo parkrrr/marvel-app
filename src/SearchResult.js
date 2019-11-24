@@ -6,18 +6,20 @@ import './SearchResult.css'
 
 // TODO see https://developer.marvel.com/documentation/images
 function SearchResult(props) {
+  let thumbnail = props.result.thumbnail.path + "/standard_medium." + props.result.thumbnail.extension;
+
   return (
-    <Row>
+    <Row className="resultRow">
       <Col>
         <Media>
-          <Media left href="#">
-            <Media className="thumbnail" object src="{props.thumbnail}" alt="Generic placeholder image" />
+          <Media left>
+            <Media className="thumbnail" object src={thumbnail} alt="Generic placeholder image" />
           </Media>
           <Media body>
             <Media heading>
-              {props.title}
+              {props.result.title}
             </Media>
-            {props.desc}
+            {props.result.description}
           </Media>
         </Media>
       </Col>

@@ -31,9 +31,9 @@ class SearchApp extends React.Component {
 
   renderResults() {
     const r = this.state.results.slice();
-    const styledResults = r.map((v, i) => {
+    const styledResults = r.map((result, i) => {
       return (
-        <SearchResult key={v.id} title={v.title} desc={v.description}></SearchResult>
+        <SearchResult key={result.id} result={result}></SearchResult>
       )
     });
 
