@@ -19,12 +19,8 @@ class SearchApp extends React.Component {
   }
 
   search(value) {
-    console.debug(process.env.REACT_APP_API_URL);
-    console.debug('Search value: ' + value);
-
     let request = process.env.REACT_APP_API_URL + '/search/' + value;
     $.getJSON(request, (results) => {
-      console.debug(results);
       this.setState({
         results: results.data.results,
         resultsCount: results.data.count,
