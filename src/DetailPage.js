@@ -13,6 +13,7 @@ class DetailPage extends React.Component {
   }
 
   get(id) {
+    // Request details from the API middleware
     let request = `${process.env.REACT_APP_API_URL}/detail/${id}`;
     $.getJSON(request, (results) => {
       let result = results.data.results[0];
@@ -24,6 +25,7 @@ class DetailPage extends React.Component {
   }
 
   componentDidMount() {
+    // Grab the ID object from the URL parameters
     const { id } = this.props.match.params
     this.get(id);
   }
@@ -33,6 +35,7 @@ class DetailPage extends React.Component {
   }
 
   renderCreators() {
+    // If the creator names are available, pull them out and add their role to a list
     if (!this.state.result.creators || this.state.result.creators.available) return 'n/a';
 
     const creators = this.state.result.creators.items.slice();
@@ -41,6 +44,7 @@ class DetailPage extends React.Component {
   }
   
   getCharacters() {
+    // If the character names are available, pull them out and add them to a comma-separated list
     if (!this.state.result.characters || this.state.result.characters.available === 0) return 'n/a';
     const characters = this.state.result.characters.items.slice();
     let characterNames = characters.map(c => c.name);
@@ -48,6 +52,7 @@ class DetailPage extends React.Component {
   }
 
   getPrintPrice() {
+    // If a print price is available, show it.
     if (!this.state.result.prices) return 'n/a';
 
     let prices = this.state.result.prices;

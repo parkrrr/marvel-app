@@ -19,6 +19,7 @@ class SearchPage extends React.Component {
   }
 
   componentDidMount() {
+    // Load the previous search results if they exist
     var state = JSON.parse(localStorage.getItem('searchState'));
 
     console.debug('found state: ' + state)
@@ -28,6 +29,7 @@ class SearchPage extends React.Component {
   }
 
   search(value) {
+    // Call the API middleware to get results based on the search query
     let request = `${process.env.REACT_APP_API_URL}/search/${value}`;
     $.getJSON(request, (results) => {
       let state = {
@@ -36,6 +38,7 @@ class SearchPage extends React.Component {
         resultsTotal: results.data.total
       };
 
+      // Save the results and stats to state and local storage
       this.setState(state);
 
       localStorage.setItem('searchState', JSON.stringify(state));
@@ -62,12 +65,17 @@ class SearchPage extends React.Component {
   }
 
   renderStats() {
+    // Only show the stats if there are results.
+    // This avoids '0 of 0' showing up when the page is loaded for the first time. 
     if (!this.state.results) return;
+
+    const count = this.state.resultsCount;
+    const total = this.state.resultsTotal;
     return (
       <Row className="statsRow">
         <Col>
           <div>
-            Showing {this.state.resultsCount} results of {this.state.resultsTotal}
+            Showing {count} results of {total}
           </div>
         </Col>
       </Row>

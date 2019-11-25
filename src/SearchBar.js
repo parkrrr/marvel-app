@@ -6,6 +6,8 @@ import {
   Button
 } from 'reactstrap';
 
+// This component contains logic for the search bar
+// It maintains the search text state and handles input-related events
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +17,7 @@ class SearchBar extends React.Component {
   }
 
   componentDidMount() {
+    // When the component has been rendered, grab the state if it exists
     let text = localStorage.getItem('searchText');
     if (text) {
       this.setState({ searchText: text });
@@ -22,12 +25,15 @@ class SearchBar extends React.Component {
   }
 
   updateSearchText(e) {
+    // Update the state as often as possible
+    // This will help if the user actually navigates away
     let text = e.target.value;
     localStorage.setItem('searchText', text)
     this.setState({ searchText: text });
   }
 
   handleKeyPress(e) {
+    // Specifically handles the user hitting 'enter' while focused in the input field
     if (e.charCode === 13) {
       this.submit();
     }

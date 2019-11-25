@@ -6,6 +6,7 @@ import {
 import './SearchResult.css'
 
 function SearchResult(props) {
+  // Grab the appropriately sized thumbnail
   let thumbnail = `${props.result.thumbnail.path}/standard_medium.${props.result.thumbnail.extension}`
 
   return (
