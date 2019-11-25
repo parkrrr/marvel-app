@@ -4,6 +4,6 @@
     height:100px;
 }
 
-.resultRow {
-    padding-bottom: 1rem;
+.clickable {
+    cursor: pointer;
 }

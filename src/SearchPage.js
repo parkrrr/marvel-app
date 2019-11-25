@@ -47,22 +47,28 @@ class SearchPage extends React.Component {
 
   }
 
+  renderRow(set) {
+    return set.map((r, i) => {
+      return (
+        <Col>
+          <SearchResult key={r.id} result={r}></SearchResult>
+        </Col>
+      )
+    })
+  }
+
   renderResults() {
     if (!this.state.results) return;
 
     const r = this.state.results.slice();
-    const styledResults = r.map((result, i) => {
-      return (
-        <SearchResult key={result.id} result={result}></SearchResult>
-      )
-    });
-
-    return (
-      <div>
-        {styledResults}
-      </div>
-    )
+    let rows = [];
+    for (let i = 0; i < r.length; i += 5) {
+      const set = r.slice(i, i + 5);
+      rows.push(this.renderRow(set));
+    }
+    return rows.map((r, i) => <Row className='resultRow' key={i}>{r}</Row>);
   }
+
 
   renderStats() {
     // Only show the stats if there are results.
@@ -94,9 +100,9 @@ class SearchPage extends React.Component {
         </Row>
         {this.renderStats()}
         <div id="resultsPane">
-
+          {this.renderResults()}
         </div>
-        {this.renderResults()}
+
       </>
     )
   }
