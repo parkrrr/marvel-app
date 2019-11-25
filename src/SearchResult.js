@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {
   Media, Row, Col
 } from 'reactstrap';
@@ -16,7 +17,9 @@ function SearchResult(props) {
           </Media>
           <Media body>
             <Media heading>
-              {props.result.title}
+              <Link to={`/${props.result.id}`}>
+                {props.result.title}
+              </Link>
             </Media>
             {props.result.description}
           </Media>

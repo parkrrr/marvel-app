@@ -14,8 +14,17 @@ class SearchBar extends React.Component {
     };
   }
 
+  componentDidMount() {
+    let text = localStorage.getItem('searchText');
+    if (text) {
+      this.setState({ searchText: text });
+    }
+  }
+
   updateSearchText(e) {
-    this.setState({ searchText: e.target.value });
+    let text = e.target.value;
+    localStorage.setItem('searchText', text)
+    this.setState({ searchText: text });
   }
 
   handleKeyPress(e) {
