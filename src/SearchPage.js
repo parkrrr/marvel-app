@@ -60,6 +60,7 @@ class SearchPage extends React.Component {
   renderResults() {
     if (!this.state.results) return;
 
+    // Break the results into sets of 5, then render each row 5 at a time
     const r = this.state.results.slice();
     let rows = [];
     for (let i = 0; i < r.length; i += 5) {
