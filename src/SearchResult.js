@@ -6,7 +6,7 @@ import {
 import './SearchResult.css'
 
 function SearchResult(props) {
-  let thumbnail = props.result.thumbnail.path + "/standard_medium." + props.result.thumbnail.extension;
+  let thumbnail = `${props.result.thumbnail.path}/standard_medium.${props.result.thumbnail.extension}`
 
   return (
     <Row className="resultRow">

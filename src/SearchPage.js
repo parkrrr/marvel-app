@@ -28,7 +28,7 @@ class SearchPage extends React.Component {
   }
 
   search(value) {
-    let request = process.env.REACT_APP_API_URL + '/search/' + value;
+    let request = `${process.env.REACT_APP_API_URL}/search/${value}`;
     $.getJSON(request, (results) => {
       let state = {
         results: results.data.results,
