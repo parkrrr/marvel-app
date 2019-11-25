@@ -77,15 +77,7 @@ class SearchPage extends React.Component {
 
     const count = this.state.resultsCount;
     const total = this.state.resultsTotal;
-    return (
-      <Row className="statsRow">
-        <Col>
-          <div>
-            Showing {count} results of {total}
-          </div>
-        </Col>
-      </Row>
-    )
+    return `Showing ${count} results of ${total}`
   }
 
   render() {
@@ -98,11 +90,14 @@ class SearchPage extends React.Component {
             </div>
           </Col>
         </Row>
-        {this.renderStats()}
+        <Row className="statsRow">
+          <Col>
+            {this.renderStats()}
+          </Col>
+        </Row>
         <div id="resultsPane">
           {this.renderResults()}
         </div>
-
       </>
     )
   }
