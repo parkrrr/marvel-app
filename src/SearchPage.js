@@ -2,10 +2,10 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import SearchBar from './SearchBar'
 import SearchResult from './SearchResult'
-import './SearchApp.css';
+import './SearchPage.css';
 import $ from 'jquery';
 
-class SearchApp extends React.Component {
+class SearchPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -82,4 +82,4 @@ class SearchApp extends React.Component {
   }
 }
 
-export default SearchApp;
+export default SearchPage;
