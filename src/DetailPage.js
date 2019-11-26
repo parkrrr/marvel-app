@@ -3,6 +3,7 @@ import $ from 'jquery';
 import {
   Button, Row, Col, Table
 } from 'reactstrap';
+import './DetailPage.css'
 
 class DetailPage extends React.Component {
   constructor(props) {
@@ -89,9 +90,11 @@ class DetailPage extends React.Component {
                 </tr>
                 <tr>
                   <th scope="row">Creators</th>
-                  <td>              <ul>
-                    {this.renderCreators()}
-                  </ul></td>
+                  <td>
+                    <ul>
+                      {this.renderCreators()}
+                    </ul>
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Pages</th>
