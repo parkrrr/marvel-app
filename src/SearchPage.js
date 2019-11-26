@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import SearchBar from './SearchBar'
 import SearchResult from './SearchResult'
+import ResultLimitSetting from './ResultLimitSetting'
 import './SearchPage.css';
 import $ from 'jquery';
 
@@ -13,6 +14,7 @@ class SearchPage extends React.Component {
 
     this.state = {
       results: null,
+      resultsLimit: 10,
       resultsCount: 0,
       resultsTotal: 0
     };
@@ -29,13 +31,16 @@ class SearchPage extends React.Component {
   }
 
   search(value) {
+    let limit = this.state.resultsLimit || 10;
+
     // Call the API middleware to get results based on the search query
-    let request = `${process.env.REACT_APP_API_URL}/search/${value}`;
+    let request = `${process.env.REACT_APP_API_URL}/search/${value}?limit=${limit}`;
     $.getJSON(request, (results) => {
       let state = {
         results: results.data.results,
         resultsCount: results.data.count,
-        resultsTotal: results.data.total
+        resultsTotal: results.data.total,
+        resultsLimit: limit
       };
 
       // Save the results and stats to state and local storage
@@ -45,6 +50,12 @@ class SearchPage extends React.Component {
     });
 
 
+  }
+
+  updateLimit(limit) {
+    let state = this.state;
+    state.resultsLimit = limit;
+    this.setState(state);
   }
 
   renderRow(set) {
@@ -92,8 +103,11 @@ class SearchPage extends React.Component {
           </Col>
         </Row>
         <Row className="statsRow">
-          <Col>
+          <Col xs='9'>
             {this.renderStats()}
+          </Col>
+          <Col xs='3'>
+            <ResultLimitSetting onChange={(l) => this.updateLimit(l)} />
           </Col>
         </Row>
         <div id="resultsPane">
