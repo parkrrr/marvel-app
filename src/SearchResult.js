@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Card, CardImg, CardBody, CardTitle
 } from 'reactstrap';
@@ -17,7 +17,7 @@ function SearchResult(props) {
   }
 
   return (
-    <Card className="clickable" onClick={() => { handleClick(props.result.id)}}>
+    <Card className="clickable" onClick={() => { handleClick(props.result.id) }}>
       <CardImg top width='100%' src={thumbnail} />
       <CardBody>
         <CardTitle>{props.result.title}</CardTitle>

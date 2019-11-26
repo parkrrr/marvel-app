@@ -57,7 +57,7 @@ class DetailPage extends React.Component {
     let creatorNames = creators.map((c) => <li key={c.name + c.role}>{c.name} - {c.role}</li>);
     return creatorNames
   }
-  
+
   getCharacters() {
     // If the character names are available, pull them out and add them to a comma-separated list
     if (!this.state.result.characters || this.state.result.characters.available === 0) return 'n/a';
@@ -86,7 +86,7 @@ class DetailPage extends React.Component {
   render() {
     return (
       <>
-              <Row>
+        <Row>
           <Col>
             <Error visible={this.state.error} value="Could not fetch search results" />
           </Col>
@@ -95,7 +95,7 @@ class DetailPage extends React.Component {
           <Col xs='1'>
             <Button color="primary" onClick={this.goBack}>Back</Button>
           </Col>
-          
+
           <Col><h3>{this.state.result.title}</h3></Col>
           <Col xs='1'>
             {this.state.loading ? <Spin /> : null}
@@ -104,8 +104,8 @@ class DetailPage extends React.Component {
 
         <Row>
           <Col xs='4'>
-            { this.getThumbnail() ? <img className='rounded float-left cover' src={this.getThumbnail()} alt='Cover'></img> : null }
-            </Col>
+            {this.getThumbnail() ? <img className='rounded float-left cover' src={this.getThumbnail()} alt='Cover'></img> : null}
+          </Col>
           <Col>
             <Table borderless size='sm'>
               <tbody>

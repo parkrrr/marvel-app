@@ -5,8 +5,8 @@ import {
     Input
 } from 'reactstrap';
 
-// This component contains logic for the search bar
-// It maintains the search text state and handles input-related events
+// This component is similar to the SearchBar component, in that it stores its own state 
+// and exposes its properties as well as a callback
 class ResultLimitSetting extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,6 @@ class ResultLimitSetting extends React.Component {
     }
 
     componentDidMount() {
-        // When the component has been rendered, grab the state if it exists
         let limit = localStorage.getItem('searchLimit');
         if (!limit) {
             limit = 10;
