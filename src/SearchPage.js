@@ -24,7 +24,6 @@ class SearchPage extends React.Component {
     // Load the previous search results if they exist
     var state = JSON.parse(localStorage.getItem('searchState'));
 
-    console.debug('found state: ' + state)
     if (state) {
       this.setState(state);
     }
@@ -53,15 +52,18 @@ class SearchPage extends React.Component {
   }
 
   updateLimit(limit) {
+    const parsed = parseInt(limit, 10);
+    if (isNaN(parsed)) { return 10; }
+
     let state = this.state;
-    state.resultsLimit = limit;
+    state.resultsLimit = parsed;
     this.setState(state);
   }
 
   renderRow(set) {
     return set.map((r, i) => {
       return (
-        <Col>
+        <Col key={i}>
           <SearchResult key={r.id} result={r}></SearchResult>
         </Col>
       )
@@ -103,11 +105,11 @@ class SearchPage extends React.Component {
           </Col>
         </Row>
         <Row className="statsRow">
-          <Col xs='9'>
-            {this.renderStats()}
+          <Col xs='2'>
+            <ResultLimitSetting value={this.state.resultsLimit} onChange={(l) => this.updateLimit(l)} />
           </Col>
-          <Col xs='3'>
-            <ResultLimitSetting onChange={(l) => this.updateLimit(l)} />
+          <Col>
+            {this.renderStats()}
           </Col>
         </Row>
         <div id="resultsPane">

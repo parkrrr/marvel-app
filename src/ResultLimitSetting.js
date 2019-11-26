@@ -11,7 +11,7 @@ class ResultLimitSetting extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchLimit: null
+            searchLimit: props.value
         };
     }
 
@@ -37,7 +37,7 @@ class ResultLimitSetting extends React.Component {
         return (
             <InputGroup>
                 <InputGroupAddon addonType="prepend">Limit</InputGroupAddon>
-                <Input onChange={e => this.updateLimit(e)} />
+                <Input value={this.state.searchLimit} onChange={e => this.updateLimit(e)} />
             </InputGroup>
         )
     }
