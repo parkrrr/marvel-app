@@ -7,3 +7,9 @@ ul {
 th {
     width: 7rem;
 }
+
+.cover {
+    padding-right: 1rem;
+    width:300px;
+    height:450px;
+}

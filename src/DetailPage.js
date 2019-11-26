@@ -3,6 +3,8 @@ import $ from 'jquery';
 import {
   Button, Row, Col, Table
 } from 'reactstrap';
+import Spin from './Spin'
+import Error from './Error'
 import './DetailPage.css'
 
 class DetailPage extends React.Component {
@@ -10,10 +12,14 @@ class DetailPage extends React.Component {
     super(props);
 
     this.goBack = this.goBack.bind(this)
-    this.state = { result: {} };
+    this.state = { result: {}, loading: false, error: null };
   }
 
   get(id) {
+    let s = this.state;
+    s.loading = true;
+    this.setState(s);
+
     // Request details from the API middleware
     let request = `${process.env.REACT_APP_API_URL}/detail/${id}`;
     $.getJSON(request, (results) => {
@@ -21,7 +27,15 @@ class DetailPage extends React.Component {
 
       this.setState({
         result: result
-      });
+      })
+    }).fail(() => {
+      let s = this.state;
+      s.error = true;
+      this.setState(s);
+    }).always(() => {
+      let s = this.state;
+      s.loading = false;
+      this.setState(s);
     });
   }
 
@@ -72,15 +86,26 @@ class DetailPage extends React.Component {
   render() {
     return (
       <>
+              <Row>
+          <Col>
+            <Error visible={this.state.error} value="Could not fetch search results" />
+          </Col>
+        </Row>
         <Row>
           <Col xs='1'>
             <Button color="primary" onClick={this.goBack}>Back</Button>
           </Col>
+          
           <Col><h3>{this.state.result.title}</h3></Col>
+          <Col xs='1'>
+            {this.state.loading ? <Spin /> : null}
+          </Col>
         </Row>
+
         <Row>
           <Col xs='4'>
-            <img className='rounded float-left' src={this.getThumbnail()} alt='Cover'></img></Col>
+            { this.getThumbnail() ? <img className='rounded float-left cover' src={this.getThumbnail()} alt='Cover'></img> : null }
+            </Col>
           <Col>
             <Table borderless size='sm'>
               <tbody>

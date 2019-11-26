@@ -3,6 +3,8 @@ import { Row, Col } from 'reactstrap';
 import SearchBar from './SearchBar'
 import SearchResult from './SearchResult'
 import ResultLimitSetting from './ResultLimitSetting'
+import Spin from './Spin'
+import Error from './Error'
 import './SearchPage.css';
 import $ from 'jquery';
 
@@ -13,10 +15,12 @@ class SearchPage extends React.Component {
     this.search = this.search.bind(this)
 
     this.state = {
+      loading: false,
       results: null,
       resultsLimit: 10,
       resultsCount: 0,
-      resultsTotal: 0
+      resultsTotal: 0,
+      error: null
     };
   }
 
@@ -32,6 +36,10 @@ class SearchPage extends React.Component {
   search(value) {
     let limit = this.state.resultsLimit || 10;
 
+    let s = this.state;
+    s.loading = true;
+    this.setState(s);
+
     // Call the API middleware to get results based on the search query
     let request = `${process.env.REACT_APP_API_URL}/search/${value}?limit=${limit}`;
     $.getJSON(request, (results) => {
@@ -39,14 +47,25 @@ class SearchPage extends React.Component {
         results: results.data.results,
         resultsCount: results.data.count,
         resultsTotal: results.data.total,
-        resultsLimit: limit
+        resultsLimit: limit,
+        error: null
       };
 
       // Save the results and stats to state and local storage
       this.setState(state);
 
       localStorage.setItem('searchState', JSON.stringify(state));
-    });
+    })
+      .fail((e) => {
+        let s = this.state;
+        s.error = true;
+        this.setState(s);
+      })
+      .always(() => {
+        let s = this.state;
+        s.loading = false;
+        this.setState(s);
+      })
 
 
   }
@@ -104,12 +123,20 @@ class SearchPage extends React.Component {
             </div>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Error visible={this.state.error} value="Could not fetch search results" />
+          </Col>
+        </Row>
         <Row className="statsRow">
           <Col xs='2'>
             <ResultLimitSetting value={this.state.resultsLimit} onChange={(l) => this.updateLimit(l)} />
           </Col>
           <Col>
             {this.renderStats()}
+          </Col>
+          <Col xs='1'>
+            {this.state.loading ? <Spin /> : null}
           </Col>
         </Row>
         <div id="resultsPane">
