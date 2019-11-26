@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import {
-  Button, Row, Col
+  Button, Row, Col, Table
 } from 'reactstrap';
 
 class DetailPage extends React.Component {
@@ -36,7 +36,7 @@ class DetailPage extends React.Component {
 
   renderCreators() {
     // If the creator names are available, pull them out and add their role to a list
-    if (!this.state.result.creators || this.state.result.creators.available) return 'n/a';
+    if (!this.state.result.creators || !this.state.result.creators.available) return 'n/a';
 
     const creators = this.state.result.creators.items.slice();
     let creatorNames = creators.map((c) => <li key={c.name + c.role}>{c.name} - {c.role}</li>);
@@ -61,6 +61,13 @@ class DetailPage extends React.Component {
     else return 'n/a';
   }
 
+  getThumbnail() {
+    if (!this.state.result.images) return;
+    let image = this.state.result.images[0];
+    let thumbnail = `${image.path}/portrait_uncanny.${image.extension}`
+    return thumbnail;
+  }
+
   render() {
     return (
       <>
@@ -68,31 +75,38 @@ class DetailPage extends React.Component {
           <Col xs='1'>
             <Button color="primary" onClick={this.goBack}>Back</Button>
           </Col>
-          <Col>
-            <h3>{this.state.result.title}</h3>
-          </Col>
+          <Col><h3>{this.state.result.title}</h3></Col>
         </Row>
         <Row>
-          <Col xs='2'>Pages: {this.state.result.pageCount}</Col>
-          <Col xs='2'>Price: {this.getPrintPrice()}</Col>
-          <Col>Primary Characters: {this.getCharacters()}</Col>
-        </Row>
-        <Row>
-          <Col xs='2'>
-            Creators
-          </Col>
+          <Col xs='4'>
+            <img className='rounded float-left' src={this.getThumbnail()} alt='Cover'></img></Col>
           <Col>
-          <ul>
-          {this.renderCreators()}
-          </ul>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs='2'>
-            Description
-        </Col>
-          <Col>
-            {this.state.result.description || 'n/a'}
+            <Table borderless size='sm'>
+              <tbody>
+                <tr>
+                  <th scope="row">Characters</th>
+                  <td>{this.getCharacters()}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Creators</th>
+                  <td>              <ul>
+                    {this.renderCreators()}
+                  </ul></td>
+                </tr>
+                <tr>
+                  <th scope="row">Pages</th>
+                  <td>{this.state.result.pageCount}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Price</th>
+                  <td>{this.getPrintPrice()}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Description</th>
+                  <td>{this.state.result.description || 'n/a'}</td>
+                </tr>
+              </tbody>
+            </Table>
           </Col>
         </Row>
       </>
